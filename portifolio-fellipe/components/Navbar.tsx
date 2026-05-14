@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const navLinks = [
   { href: "#about", label: "Sobre" },
   { href: "#certifications", label: "Certificações" },
+  { href: "#experience", label: "Experiência" },
   { href: "#projects", label: "Projetos" },
   { href: "#contact", label: "Contacto" },
 ];
@@ -33,7 +34,7 @@ export default function Navbar() {
           href="#hero"
           className="font-mono text-[#00ff41] font-bold text-lg tracking-widest hover:glow-green transition-all"
         >
-          <span className="text-slate-500">&gt;</span> FELLIPE
+          <span className="text-slate-500">&gt;</span> FELLIPE MOREIRA
           <span className="animate-[blink_1s_step-end_infinite] text-[#00ff41]">_</span>
         </a>
 

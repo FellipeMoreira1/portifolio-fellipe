@@ -75,7 +75,7 @@ export default function Projects() {
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="flex items-center gap-4 mb-16">
-          <span className="font-mono text-[#00ff41] text-sm">03.</span>
+          <span className="font-mono text-[#00ff41] text-sm">04.</span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold text-white">
             Projetos
           </h2>

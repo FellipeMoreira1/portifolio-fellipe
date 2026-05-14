@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const TYPED_STRINGS = [
-  "Cyber Security Specialist",
-  "Penetration Tester",
-  "Vulnerability Analyst",
-  "CTF Player",
+  "Security Operations Analyst",
+  "Microsoft Sentinel Specialist",
+  "Incident Response Analyst",
+  "Cloud Security Engineer",
 ];
 
 export default function Hero() {
@@ -69,61 +69,88 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        {/* Terminal header */}
-        <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-green-500/20 bg-green-500/5 font-mono text-xs text-green-400">
-          <span className="w-2 h-2 rounded-full bg-[#00ff41] animate-pulse" />
-          system.status: online
+        {/* Professional badge */}
+        <div className="flex justify-center mb-8">
+          <div
+            className="inline-flex items-center gap-4 px-10 py-4 rounded font-mono tracking-widest animate-[glow-pulse_2.5s_ease-in-out_infinite]"
+            style={{
+              border: "1px solid rgba(0,255,65,0.45)",
+              background: "rgba(0,255,65,0.04)",
+            }}
+          >
+            <span className="text-green-400/90 font-semibold text-base md:text-lg">SOC ANALYST</span>
+            <span className="text-green-500/40 text-lg">·</span>
+            <span className="text-slate-400 text-base md:text-lg">LISBOA, PT</span>
+          </div>
         </div>
 
         {/* Name */}
         <h1 className="font-mono text-6xl md:text-8xl font-black tracking-tight mb-4">
-          <span className="text-slate-500 text-4xl md:text-5xl block mb-2">
-            &lt;root@sec&gt;
-          </span>
           <span
             className="text-[#00ff41]"
             style={{
               textShadow: "0 0 30px rgba(0,255,65,0.5), 0 0 60px rgba(0,255,65,0.2)",
             }}
           >
-            FELLIPE
+            FELLIPE MOREIRA
           </span>
         </h1>
 
         {/* Typed role */}
-        <div className="font-mono text-xl md:text-2xl text-slate-300 mb-8 h-8">
+        <div className="font-mono text-2xl md:text-3xl text-slate-300 mb-10 h-10">
           <span className="text-green-500/70">$ </span>
           <span>{displayText}</span>
           <span className="animate-[blink_1s_step-end_infinite] text-[#00ff41]">|</span>
         </div>
 
         {/* Bio line */}
-        <p className="font-mono text-slate-500 text-sm md:text-base mb-12 max-w-xl mx-auto">
+        <p className="font-mono text-slate-500 text-base md:text-lg mb-14 max-w-2xl mx-auto">
           <span className="text-green-500/50">// </span>
-          Protegendo sistemas, identificando vulnerabilidades e construindo ambientes mais seguros.
+          Security Operations Analyst | Microsoft Sentinel & Defender XDR | Cloud & Data Security
         </p>
 
         {/* CTA buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
           <a
             href="#projects"
-            className="px-8 py-3 bg-[#00ff41] text-black font-mono font-bold text-sm rounded hover:bg-green-400 transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)]"
+            className="px-8 py-3 bg-[#00ff41] text-black font-mono font-bold text-base rounded hover:bg-green-400 transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)]"
           >
             Ver Projetos
           </a>
           <a
             href="#contact"
-            className="px-8 py-3 border border-[#00ff41]/50 text-[#00ff41] font-mono font-bold text-sm rounded hover:border-[#00ff41] hover:bg-[#00ff41]/10 transition-all duration-200"
+            className="px-8 py-3 border border-[#00ff41]/50 text-[#00ff41] font-mono font-bold text-base rounded hover:border-[#00ff41] hover:bg-[#00ff41]/10 transition-all duration-200"
           >
             Contactar
           </a>
+          <a
+            href="https://www.linkedin.com/in/fellipesmoreira/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 border border-[#00ff41]/50 text-[#00ff41] font-mono font-bold text-base rounded hover:border-[#00ff41] hover:bg-[#00ff41]/10 transition-all duration-200 inline-flex items-center gap-2"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+          <a
+            href="/Fellipe_Moreira_CV.pdf"
+            download="Fellipe_Moreira_CV.pdf"
+            className="px-8 py-3 border border-green-500/30 text-slate-400 font-mono font-bold text-base rounded hover:border-green-500/60 hover:text-[#00ff41] hover:bg-[#00ff41]/5 transition-all duration-200 inline-flex items-center gap-2"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Baixe meu CV
+          </a>
         </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-green-500/40">
-          <span className="font-mono text-xs">scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-green-500/40 to-transparent animate-pulse" />
-        </div>
+      {/* Scroll indicator — outside content div to avoid overlap */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-green-500/40 z-10">
+        <span className="font-mono text-xs">scroll</span>
+        <div className="w-px h-12 bg-gradient-to-b from-green-500/40 to-transparent animate-pulse" />
       </div>
     </section>
   );

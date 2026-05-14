@@ -4,54 +4,69 @@ interface Certification {
   date: string;
   status: "active" | "progress" | "expired";
   credentialId?: string;
-  badge?: string;
+  badge: string;
+  url?: string;
 }
 
 const certifications: Certification[] = [
   {
-    name: "CompTIA Security+",
-    issuer: "CompTIA",
-    date: "2023",
+    name: "Microsoft Certified: Azure Fundamentals",
+    issuer: "Microsoft",
+    date: "Jan 2026",
     status: "active",
-    credentialId: "COMP001-XXXX",
-    badge: "SEC+",
+    credentialId: "60A2FC36C443F489",
+    badge: "AZ-900",
+    url: "https://learn.microsoft.com/api/credentials/share/pt-br/FellipeMoreira-7715/60A2FC36C443F489?sharingId",
   },
   {
-    name: "Certified Ethical Hacker (CEH)",
-    issuer: "EC-Council",
-    date: "2023",
+    name: "Microsoft Certified: Security, Compliance, and Identity Fundamentals",
+    issuer: "Microsoft",
+    date: "Aug 2025",
     status: "active",
-    credentialId: "ECC-XXXX",
-    badge: "CEH",
+    credentialId: "C669EECFF8DA47C4",
+    badge: "SC-900",
+    url: "https://learn.microsoft.com/api/credentials/share/en-us/FellipeMoreira-7715/C669EECFF8DA47C4?sharingId",
   },
   {
-    name: "eLearnSecurity Junior Penetration Tester (eJPT)",
-    issuer: "eLearnSecurity",
-    date: "2022",
+    name: "SC-900: Microsoft Security, Compliance, Identity",
+    issuer: "Udemy",
+    date: "Jul 2024",
     status: "active",
-    credentialId: "INE-XXXX",
-    badge: "eJPT",
+    credentialId: "UC-0167e8a6",
+    badge: "SC-900",
+    url: "https://www.udemy.com/certificate/UC-0167e8a6-4b2e-4613-9337-37eeef2a0363/",
   },
   {
-    name: "Offensive Security Certified Professional (OSCP)",
-    issuer: "Offensive Security",
-    date: "Em curso",
-    status: "progress",
-    badge: "OSCP",
-  },
-  {
-    name: "Google Cybersecurity Professional",
-    issuer: "Google / Coursera",
-    date: "2022",
+    name: "Microsoft 365 Fundamentals",
+    issuer: "Ka Solution",
+    date: "Oct 2022",
     status: "active",
-    badge: "GCC",
+    credentialId: "47326-71787",
+    badge: "MS-900",
   },
   {
-    name: "AWS Security Specialty",
-    issuer: "Amazon Web Services",
-    date: "Planeado 2025",
-    status: "progress",
-    badge: "AWS",
+    name: "Bootcamp Online — Analista de Cybersecurity",
+    issuer: "IGTI",
+    date: "Sep 2020",
+    status: "active",
+    badge: "IGTI",
+  },
+  {
+    name: "Treinamento para Data Protection Officers",
+    issuer: "Silveiro Advogados",
+    date: "Jul 2020",
+    status: "active",
+    badge: "DPO",
+    url: "https://silveiroadvogados.launchlab.com.br/public/certificates/9e3c18e6-b3ff-45ac-ae97-d17fdff9e4f5/share",
+  },
+  {
+    name: "Introdução ao Git e ao GitHub",
+    issuer: "Digital Innovation One",
+    date: "Feb 2021",
+    status: "active",
+    credentialId: "E7600853",
+    badge: "GIT",
+    url: "https://certificates.digitalinnovation.one/E7600853",
   },
 ];
 
@@ -105,10 +120,15 @@ export default function Certifications() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {certifications.map((cert) => {
             const s = statusConfig[cert.status];
+            const Wrapper = cert.url ? "a" : "div";
+            const wrapperProps = cert.url
+              ? { href: cert.url, target: "_blank", rel: "noopener noreferrer" }
+              : {};
             return (
-              <div
+              <Wrapper
                 key={cert.name}
-                className="group bg-[#080f12] border border-green-500/10 rounded-lg p-6 hover:border-green-500/30 transition-all duration-300 hover:bg-[#0a1510] cursor-default"
+                {...wrapperProps}
+                className="group bg-[#080f12] border border-green-500/10 rounded-lg p-6 hover:border-green-500/30 transition-all duration-300 hover:bg-[#0a1510] cursor-default block"
               >
                 {/* Badge + status */}
                 <div className="flex items-start justify-between mb-4">
@@ -140,7 +160,14 @@ export default function Certifications() {
                     {cert.credentialId}
                   </div>
                 )}
-              </div>
+
+                {/* External link indicator */}
+                {cert.url && (
+                  <div className="font-mono text-xs text-green-500/30 mt-2 group-hover:text-green-500/60 transition-colors">
+                    ↗ ver credencial
+                  </div>
+                )}
+              </Wrapper>
             );
           })}
         </div>

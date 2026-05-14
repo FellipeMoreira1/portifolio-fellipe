@@ -1,8 +1,20 @@
 const skills = [
-  { category: "Offensive Security", items: ["Penetration Testing", "Web App Security", "Network Exploitation", "Social Engineering"] },
-  { category: "Tools & Frameworks", items: ["Kali Linux", "Burp Suite", "Metasploit", "Nmap", "Wireshark", "OWASP ZAP"] },
-  { category: "Defensive", items: ["SIEM / SOC", "Threat Intelligence", "Incident Response", "Hardening"] },
-  { category: "Certifications", items: ["CompTIA Security+", "CEH", "eJPT", "OSCP (em progresso)"] },
+  {
+    category: "Microsoft Security",
+    items: ["Microsoft Sentinel", "Defender XDR", "Microsoft Purview", "Microsoft Entra ID"],
+  },
+  {
+    category: "SOC & Resposta",
+    items: ["Detecção de Ameaças", "Incident Response", "Análise Forense", "Gestão de Vulnerabilidades"],
+  },
+  {
+    category: "Infraestrutura",
+    items: ["Windows Server", "Active Directory", "Redes LAN/WAN", "Email Security"],
+  },
+  {
+    category: "Cloud & Identidade",
+    items: ["Microsoft Azure", "Microsoft 365", "Acesso Condicional", "Proteção de Identidade"],
+  },
 ];
 
 export default function About() {
@@ -34,22 +46,23 @@ export default function About() {
 
               <div className="space-y-4 text-slate-300 leading-relaxed">
                 <p>
-                  <span className="text-[#00ff41]">$</span> Especialista em Cibersegurança com
-                  foco em segurança ofensiva e análise de vulnerabilidades. Apaixonado por
-                  entender como sistemas falham para construir defesas mais sólidas.
+                  <span className="text-[#00ff41]">$</span> Profissional de cibersegurança
+                  com foco em segurança em nuvem Microsoft, atuando como Security Operations
+                  Analyst com experiência em Microsoft Sentinel, Defender XDR, Purview e Entra ID.
                 </p>
                 <p>
-                  <span className="text-[#00ff41]">$</span> Experiência em testes de penetração
-                  web e de redes, análise de código-fonte e modelagem de ameaças. Participante
-                  ativo em competições CTF e comunidades de segurança.
+                  <span className="text-[#00ff41]">$</span> Responsável por monitorização
+                  e detecção de ameaças, análise forense de incidentes, gestão de vulnerabilidades
+                  e implementação de controles de segurança em ambientes Microsoft corporativos.
                 </p>
                 <p>
-                  <span className="text-[#00ff41]">$</span> Comprometido com o aprendizado
-                  contínuo e com a divulgação responsável de vulnerabilidades.
+                  <span className="text-[#00ff41]">$</span> Mais de 20 anos em TI, com sólida
+                  base em infraestrutura de redes e administração de sistemas antes da transição
+                  para cibersegurança.
                 </p>
                 <p className="text-[#00ff41]/70">
                   <span className="text-slate-500">// </span>
-                  &quot;Conhecer o atacante é a melhor defesa.&quot;
+                  &quot;A melhor defesa começa pelo conhecimento profundo do ambiente.&quot;
                 </p>
               </div>
             </div>
@@ -57,9 +70,9 @@ export default function About() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4">
               {[
-                { value: "50+", label: "CVEs Analisados" },
-                { value: "30+", label: "CTF Resolvidos" },
-                { value: "5+", label: "Anos Experiência" },
+                { value: "20+", label: "Anos em TI" },
+                { value: "2+", label: "Anos em SOC" },
+                { value: "4", label: "Certs Microsoft" },
               ].map((stat) => (
                 <div
                   key={stat.label}
