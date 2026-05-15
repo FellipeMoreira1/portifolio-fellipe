@@ -6,7 +6,7 @@ const navLinks = [
   { href: "#about", label: "Sobre" },
   { href: "#certifications", label: "Certificações" },
   { href: "#experience", label: "Experiência" },
-  { href: "#projects", label: "Projetos" },
+  // { href: "#projects", label: "Projetos" },  // secção em construção
   { href: "#contact", label: "Contacto" },
 ];
 
@@ -28,25 +28,28 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between gap-4">
         {/* Logo */}
         <a
           href="#hero"
-          className="font-mono text-[#00ff41] font-bold text-lg tracking-widest hover:glow-green transition-all"
+          className="font-mono text-[#00ff41] font-bold text-base sm:text-xl tracking-widest hover:glow-green transition-all shrink-0"
+          style={{ textShadow: "0 0 12px rgba(0,255,65,0.4)" }}
         >
-          <span className="text-slate-500">&gt;</span> FELLIPE MOREIRA
+          <span className="text-slate-400">&gt;</span>
+          <span className="hidden sm:inline"> FELLIPE MOREIRA</span>
+          <span className="sm:hidden"> FM</span>
           <span className="animate-[blink_1s_step-end_infinite] text-[#00ff41]">_</span>
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-6 lg:gap-10">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-mono text-sm text-slate-400 hover:text-[#00ff41] transition-colors duration-200 relative group"
+                className="font-mono text-base font-semibold text-slate-300 hover:text-[#00ff41] transition-colors duration-200 relative group tracking-wide"
               >
-                <span className="text-green-500/50 mr-1 text-xs">//</span>
+                <span className="text-green-500/60 mr-1.5 text-sm">//</span>
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#00ff41] group-hover:w-full transition-all duration-300" />
               </a>
@@ -60,15 +63,15 @@ export default function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <div className="w-5 space-y-1">
+          <div className="w-6 space-y-1.5">
             <span
-              className={`block h-0.5 bg-current transition-all ${menuOpen ? "rotate-45 translate-y-1.5" : ""}`}
+              className={`block h-0.5 bg-current transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
             />
             <span
               className={`block h-0.5 bg-current transition-all ${menuOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={`block h-0.5 bg-current transition-all ${menuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
+              className={`block h-0.5 bg-current transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
             />
           </div>
         </button>
@@ -76,16 +79,16 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[#080f12]/98 border-b border-green-500/20 px-6 py-4">
-          <ul className="space-y-4">
+        <div className="md:hidden bg-[#080f12]/98 border-b border-green-500/20 px-6 py-5">
+          <ul className="space-y-5">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="font-mono text-slate-400 hover:text-[#00ff41] transition-colors block"
+                  className="font-mono text-base font-semibold text-slate-300 hover:text-[#00ff41] transition-colors block tracking-wide"
                 >
-                  <span className="text-green-500/50 mr-2">{">"}</span>
+                  <span className="text-green-500/60 mr-2">{">"}</span>
                   {link.label}
                 </a>
               </li>

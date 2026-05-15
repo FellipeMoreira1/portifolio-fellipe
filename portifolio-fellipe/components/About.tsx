@@ -19,10 +19,10 @@ const skills = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 px-6 relative">
+    <section id="about" className="py-16 md:py-24 px-4 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="flex items-center gap-4 mb-16">
+        <div className="flex items-center gap-4 mb-10 md:mb-16">
           <span className="font-mono text-[#00ff41] text-sm">01.</span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold text-white">
             Sobre Mim
@@ -30,7 +30,7 @@ export default function About() {
           <div className="flex-1 h-px bg-gradient-to-r from-green-500/30 to-transparent" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Bio */}
           <div className="space-y-6">
             <div className="bg-[#080f12] border border-green-500/10 rounded-lg p-6 font-mono text-sm relative overflow-hidden">

@@ -71,10 +71,10 @@ const typeConfig = {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 px-6 relative">
+    <section id="projects" className="py-16 md:py-24 px-4 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="flex items-center gap-4 mb-16">
+        <div className="flex items-center gap-4 mb-10 md:mb-16">
           <span className="font-mono text-[#00ff41] text-sm">04.</span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold text-white">
             Projetos

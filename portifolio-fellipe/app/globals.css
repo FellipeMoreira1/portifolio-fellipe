@@ -9,10 +9,12 @@
 
 * {
   box-sizing: border-box;
+  min-width: 0;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -20,6 +22,12 @@ body {
   color: #e2e8f0;
   font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
+  width: 100%;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Scrollbar */

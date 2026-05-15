@@ -119,10 +119,10 @@ const positions: Position[] = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 px-6 relative">
+    <section id="experience" className="py-16 md:py-24 px-4 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="flex items-center gap-4 mb-16">
+        <div className="flex items-center gap-4 mb-10 md:mb-16">
           <span className="font-mono text-[#00ff41] text-sm">03.</span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold text-white">
             Experiência
@@ -132,14 +132,14 @@ export default function Experience() {
 
         <div className="relative">
           {/* Vertical timeline line */}
-          <div className="absolute left-0 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-green-500/40 via-green-500/20 to-transparent" />
+          <div className="absolute left-3 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-green-500/40 via-green-500/20 to-transparent" />
 
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             {positions.map((pos, i) => (
-              <div key={i} className="relative pl-8 md:pl-20">
+              <div key={i} className="relative pl-10 md:pl-20">
                 {/* Timeline dot */}
                 <div
-                  className={`absolute left-0 md:left-6 top-5 -translate-x-1/2 w-3 h-3 rounded-full border-2 ${
+                  className={`absolute left-3 md:left-6 top-5 -translate-x-1/2 w-3 h-3 rounded-full border-2 ${
                     pos.current
                       ? "border-[#00ff41] bg-[#00ff41] shadow-[0_0_8px_rgba(0,255,65,0.6)]"
                       : "border-green-500/40 bg-[#030712]"
@@ -147,7 +147,7 @@ export default function Experience() {
                 />
 
                 <div
-                  className={`group bg-[#080f12] border rounded-lg p-6 transition-all duration-300 hover:bg-[#0a1510] ${
+                  className={`group bg-[#080f12] border rounded-lg p-4 sm:p-6 transition-all duration-300 hover:bg-[#0a1510] ${
                     pos.current
                       ? "border-green-500/30 hover:border-green-500/50"
                       : "border-green-500/10 hover:border-green-500/25"

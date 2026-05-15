@@ -39,7 +39,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 relative bg-[#05090f]">
+    <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 relative bg-[#05090f]">
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -51,7 +51,7 @@ export default function Contact() {
 
       <div className="max-w-4xl mx-auto relative">
         {/* Section header */}
-        <div className="flex items-center gap-4 mb-16">
+        <div className="flex items-center gap-4 mb-10 md:mb-16">
           <span className="font-mono text-[#00ff41] text-sm">05.</span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold text-white">
             Contacto
@@ -59,7 +59,7 @@ export default function Contact() {
           <div className="flex-1 h-px bg-gradient-to-r from-green-500/30 to-transparent" />
         </div>
 
-        <div className="grid md:grid-cols-5 gap-12">
+        <div className="grid md:grid-cols-5 gap-8 md:gap-12">
           {/* Left info */}
           <div className="md:col-span-2 space-y-6">
             <p className="text-slate-400 text-sm leading-relaxed font-mono">
@@ -104,7 +104,7 @@ export default function Contact() {
           {/* Form */}
           <form
             onSubmit={handleSubmit}
-            className="md:col-span-3 bg-[#080f12] border border-green-500/10 rounded-lg p-8"
+            className="md:col-span-3 bg-[#080f12] border border-green-500/10 rounded-lg p-5 sm:p-8"
           >
             {/* Terminal bar */}
             <div className="flex items-center gap-2 mb-6 pb-4 border-b border-green-500/10">

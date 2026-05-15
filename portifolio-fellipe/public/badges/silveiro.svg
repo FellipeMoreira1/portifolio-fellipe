@@ -1,0 +1,8 @@
+<svg viewBox="0 0 72 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top horizontal ribbon -->
+  <polygon points="4,6 66,6 60,24 -2,24" fill="#252830"/>
+  <!-- Middle diagonal ribbon -->
+  <polygon points="40,26 66,26 28,56 2,56" fill="#2D3138"/>
+  <!-- Bottom horizontal ribbon -->
+  <polygon points="-2,58 60,58 66,76 4,76" fill="#252830"/>
+</svg>
