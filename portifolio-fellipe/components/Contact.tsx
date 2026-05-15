@@ -70,10 +70,10 @@ export default function Contact() {
 
             <div className="space-y-4">
               {[
-                { label: "Email", value: "fellipe@sec.dev", icon: "✉" },
-                { label: "LinkedIn", value: "/in/fellipe-sec", icon: "▶" },
-                { label: "GitHub", value: "@fellipe-sec", icon: "◈" },
-                { label: "HackTheBox", value: "@fellipe_htb", icon: "⬡" },
+                { label: "Email", value: "fellipe_moreira@outlook.com", icon: "✉", href: "mailto:fellipe_moreira@outlook.com" },
+                { label: "LinkedIn", value: "/in/fellipesmoreira", icon: "▶", href: "https://www.linkedin.com/in/fellipesmoreira/" },
+                { label: "GitHub", value: "@FellipeMoreira1", icon: "◈", href: "https://github.com/FellipeMoreira1" },
+                { label: "HackTheBox", value: "@fellipe_htb", icon: "⬡", href: undefined },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -82,7 +82,18 @@ export default function Contact() {
                   <span className="text-[#00ff41] w-4">{item.icon}</span>
                   <div>
                     <div className="text-slate-600 text-xs">{item.label}</div>
-                    <div className="text-slate-300">{item.value}</div>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                        rel="noopener noreferrer"
+                        className="text-slate-300 hover:text-[#00ff41] transition-colors"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <div className="text-slate-300">{item.value}</div>
+                    )}
                   </div>
                 </div>
               ))}

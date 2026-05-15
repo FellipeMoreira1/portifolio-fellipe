@@ -47,6 +47,14 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
+      {/* Hero background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
+      />
+      {/* Dark overlay to keep text readable */}
+      <div className="absolute inset-0 bg-[#030712]/80" />
+
       {/* Grid background */}
       <div
         className="absolute inset-0 opacity-30"
@@ -111,12 +119,7 @@ export default function Hero() {
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
-          <a
-            href="#projects"
-            className="w-full sm:w-auto px-8 py-3 bg-[#00ff41] text-black font-mono font-bold text-base rounded hover:bg-green-400 transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] text-center"
-          >
-            Ver Projetos
-          </a>
+          {/* <a href="#projects" className="w-full sm:w-auto px-8 py-3 bg-[#00ff41] text-black font-mono font-bold text-base rounded hover:bg-green-400 transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] text-center">Ver Projetos</a> */}
           <a
             href="#contact"
             className="w-full sm:w-auto px-8 py-3 border border-[#00ff41]/50 text-[#00ff41] font-mono font-bold text-base rounded hover:border-[#00ff41] hover:bg-[#00ff41]/10 transition-all duration-200 text-center"
@@ -137,7 +140,7 @@ export default function Hero() {
           <a
             href="/Fellipe_Moreira_CV.pdf"
             download="Fellipe_Moreira_CV.pdf"
-            className="w-full sm:w-auto px-8 py-3 border border-green-500/30 text-slate-400 font-mono font-bold text-base rounded hover:border-green-500/60 hover:text-[#00ff41] hover:bg-[#00ff41]/5 transition-all duration-200 inline-flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-8 py-3 border border-[#00ff41]/50 text-[#00ff41] font-mono font-bold text-base rounded hover:border-[#00ff41] hover:bg-[#00ff41]/10 transition-all duration-200 inline-flex items-center justify-center gap-2"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

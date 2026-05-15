@@ -66,10 +66,33 @@ Campos do badge no componente:
 - `badgeBg` — `#ffffff` para logos com fundo branco · `#0d1117` para logos com fundo escuro
 - `badgeColor` — cor usada no glow (`box-shadow`) e no ponto colorido do rodapé
 
+## Hero
+
+Botões ativos: `Contactar` · `LinkedIn` · `Baixe meu CV` (todos com estilo `border-[#00ff41]/50 text-[#00ff41]`).
+Botão `Ver Projetos` comentado — reativar quando Projects estiver pronto.
+Background: `public/images/hero-bg.jpg` com overlay `bg-[#030712]/80`.
+
+## About
+
+Foto de perfil circular em `public/images/profile.jpg` com glow verde.
+Skills grid: sempre 2 colunas (`grid-cols-2`), cards com `flex flex-col` para preencher altura total.
+Fontes aumentadas: bio `text-base`, skills `text-base`, stats valor `text-3xl`.
+
+## Contact
+
+Contactos reais:
+- Email: `fellipe_moreira@outlook.com` (`mailto:`)
+- LinkedIn: `linkedin.com/in/fellipesmoreira/` (link externo)
+- GitHub: `github.com/FellipeMoreira1` (link externo)
+- HackTheBox: `@fellipe_htb` (sem link)
+- PGP Key: placeholder fictício — substituir quando chave real for gerada
+
 ## Assets
 
 `public/Fellipe_Moreira_CV.pdf` — linked from Hero "Baixe meu CV" button (`download` attribute).
 `public/badges/` — logos das entidades certificadoras.
+`public/images/hero-bg.jpg` — imagem de fundo do Hero (cybersecurity banner).
+`public/images/profile.jpg` — foto de perfil usada no About.
 
 ## Deploy
 
