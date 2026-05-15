@@ -111,21 +111,22 @@ export default function Hero() {
           <span className="animate-[blink_1s_step-end_infinite] text-[#00ff41]">|</span>
         </div>
 
-        {/* Bio line */}
-        <p className="font-mono text-slate-500 text-sm sm:text-base md:text-lg mb-10 sm:mb-14 max-w-2xl mx-auto leading-relaxed">
+        {/* Differentiating bio */}
+        <p className="font-mono text-slate-400 text-sm sm:text-base md:text-lg mb-10 sm:mb-14 max-w-2xl mx-auto leading-relaxed">
           <span className="text-green-500/50">// </span>
-          Security Operations Analyst | Microsoft Sentinel & Defender XDR | Cloud & Data Security
+          20 anos em TI · Microsoft Certified (AZ-900, SC-900) · Zero data breaches em 500+ utilizadores
         </p>
 
-        {/* CTA buttons */}
+        {/* CTA buttons — primary + secondary hierarchy */}
         <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
-          {/* <a href="#projects" className="w-full sm:w-auto px-8 py-3 bg-[#00ff41] text-black font-mono font-bold text-base rounded hover:bg-green-400 transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] text-center">Ver Projetos</a> */}
+          {/* Primary CTA */}
           <a
             href="#contact"
-            className="w-full sm:w-auto px-8 py-3 border border-[#00ff41]/50 text-[#00ff41] font-mono font-bold text-base rounded hover:border-[#00ff41] hover:bg-[#00ff41]/10 transition-all duration-200 text-center"
+            className="w-full sm:w-auto px-8 py-3 bg-[#00ff41] text-black font-mono font-bold text-base rounded hover:bg-green-400 transition-all duration-200 hover:shadow-[0_0_24px_rgba(0,255,65,0.5)] text-center"
           >
             Contactar
           </a>
+          {/* Secondary CTAs */}
           <a
             href="https://www.linkedin.com/in/fellipesmoreira/"
             target="_blank"
@@ -150,7 +151,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator — outside content div to avoid overlap */}
+      {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-green-500/40 z-10">
         <span className="font-mono text-xs">scroll</span>
         <div className="w-px h-12 bg-gradient-to-b from-green-500/40 to-transparent animate-pulse" />

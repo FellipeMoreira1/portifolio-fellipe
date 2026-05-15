@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 interface Position {
   title: string;
   company: string;
@@ -117,7 +121,13 @@ const positions: Position[] = [
   },
 ];
 
+const VISIBLE_DEFAULT = 3;
+
 export default function Experience() {
+  const [expanded, setExpanded] = useState(false);
+  const visible = expanded ? positions : positions.slice(0, VISIBLE_DEFAULT);
+  const hidden = positions.length - VISIBLE_DEFAULT;
+
   return (
     <section id="experience" className="py-16 md:py-24 px-4 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
@@ -135,7 +145,7 @@ export default function Experience() {
           <div className="absolute left-3 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-green-500/40 via-green-500/20 to-transparent" />
 
           <div className="space-y-6 md:space-y-8">
-            {positions.map((pos, i) => (
+            {visible.map((pos, i) => (
               <div key={i} className="relative pl-10 md:pl-20">
                 {/* Timeline dot */}
                 <div
@@ -161,8 +171,8 @@ export default function Experience() {
                       </h3>
                       <p className="font-mono text-sm text-slate-400 mt-0.5">
                         {pos.company}
-                        <span className="text-slate-600"> · </span>
-                        <span className="text-slate-500">{pos.location}</span>
+                        <span className="text-slate-500"> · </span>
+                        <span className="text-slate-400">{pos.location}</span>
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -172,7 +182,7 @@ export default function Experience() {
                           Atual
                         </span>
                       )}
-                      <span className="font-mono text-xs text-slate-500">
+                      <span className="font-mono text-xs text-slate-400">
                         {pos.startDate} — {pos.endDate}
                       </span>
                     </div>
@@ -181,7 +191,7 @@ export default function Experience() {
                   {/* Highlights */}
                   <ul className="space-y-1.5 mt-3">
                     {pos.highlights.map((h, j) => (
-                      <li key={j} className="flex items-start gap-2 font-mono text-xs text-slate-400">
+                      <li key={j} className="flex items-start gap-2 font-mono text-sm text-slate-400">
                         <span className="text-green-500/50 mt-0.5 shrink-0">›</span>
                         {h}
                       </li>
@@ -191,6 +201,32 @@ export default function Experience() {
               </div>
             ))}
           </div>
+
+          {/* Expand / collapse toggle */}
+          {!expanded && hidden > 0 && (
+            <div className="relative pl-10 md:pl-20 mt-6 md:mt-8">
+              <div className="absolute left-3 md:left-6 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-green-500/20 bg-[#030712]" />
+              <button
+                onClick={() => setExpanded(true)}
+                className="w-full group bg-[#080f12] border border-green-500/10 border-dashed rounded-lg p-4 font-mono text-sm text-slate-400 hover:text-[#00ff41] hover:border-green-500/30 transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <span className="text-green-500/50 group-hover:text-[#00ff41] transition-colors">+</span>
+                Ver {hidden} posições anteriores (2004 — 2011)
+              </button>
+            </div>
+          )}
+
+          {expanded && (
+            <div className="relative pl-10 md:pl-20 mt-6 md:mt-8">
+              <div className="absolute left-3 md:left-6 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-green-500/20 bg-[#030712]" />
+              <button
+                onClick={() => setExpanded(false)}
+                className="w-full font-mono text-sm text-slate-500 hover:text-slate-400 transition-colors flex items-center justify-center gap-2 py-2"
+              >
+                <span>↑</span> Recolher histórico
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

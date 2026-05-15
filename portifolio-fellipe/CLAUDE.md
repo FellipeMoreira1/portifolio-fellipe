@@ -19,14 +19,15 @@ Navbar anchors: `#about` `#certifications` `#experience` `#contact`
 Link `#projects` comentado em `Navbar.tsx` navLinks array.
 
 **Content lives as typed arrays at the top of each component — no CMS, no fetching:**
-- `About.tsx` — `skills[]` groups, inline stats
+- `About.tsx` — `skills[]` groups com campo `level: "Expert"|"Advanced"|"Proficient"` por item
 - `Certifications.tsx` — `Certification[]` com campos: `badge`, `badgeColor`, `badgeBg?`, `badgeImageUrl?`, `issuerUrl`, `url?`, `credentialId?`
-- `Experience.tsx` — `Position[]` · `current?: boolean` (timeline, newest first)
+- `Experience.tsx` — `Position[]` · `current?: boolean` (timeline, newest first) · colapsa a 3 por defeito
 - `Projects.tsx` — `Project[]` · `type: "pentest"|"tool"|"research"|"ctf"` (oculto)
 
-Section numbers: 01 About · 02 Certifications · 03 Experience · 04 Projects · 05 Contact
+Section numbers: 01 About · 02 Certifications · 03 Experience · 04 Contact
+*(04 Projects reservado para quando Projects for activado)*
 
-`"use client"` only: `Navbar` (scroll + mobile menu), `Hero` (typing animation), `Contact` (form state).
+`"use client"` components: `Navbar` (scroll + active section + animations), `Hero` (typing animation), `Contact` (form state), `Experience` (expand/collapse state).
 
 ## Design System
 
@@ -39,6 +40,16 @@ Utility classes (`globals.css`): `.glow-green` `.glow-border` `.terminal-cursor`
 
 Grid/glow effects use inline `style=` props with `rgba` (not Tailwind classes).
 
+**Contrast:** usar mínimo `text-slate-400` para texto legível — `text-slate-500` apenas para elementos decorativos secundários. `text-slate-600` falha WCAG AA.
+
+## Animações on-scroll
+
+Implementadas via `IntersectionObserver` no `Navbar.tsx` (já client component).
+- Todas as `<section>` começam com `opacity:0 translateY(20px)` via CSS em `globals.css`
+- `section#hero` é excepção — sempre visível, sem animação de entrada
+- Observer adiciona classe `.is-visible` quando a secção entra no viewport (threshold 0.08)
+- `@media (prefers-reduced-motion: reduce)` desactiva todas as animações e transições
+
 ## Responsividade
 
 Site totalmente responsivo. Breakpoints usados: `sm` (640px) · `md` (768px) · `lg` (1024px).
@@ -46,6 +57,32 @@ Site totalmente responsivo. Breakpoints usados: `sm` (640px) · `md` (768px) · 
 - Navbar: logo `> FM_` mobile / `> FELLIPE MOREIRA_` sm+
 - Secções: `py-16 md:py-24` · `px-4 sm:px-6`
 - globals.css: `min-width: 0` em `*`, `-webkit-text-size-adjust: 100%`
+
+## Navbar — Secção Activa
+
+O `Navbar.tsx` usa dois `IntersectionObserver` em simultâneo:
+1. **activeObserver** (`rootMargin: "-40% 0px -55% 0px"`) → actualiza `activeSection` state → highlight do link activo (underline verde full-width + texto cyber green)
+2. **animObserver** (`threshold: 0.08`) → adiciona `.is-visible` às secções → dispara fade-in (unobserve após trigger)
+
+## Hero — Hierarquia de CTAs
+
+Botão primário: `Contactar` (sólido: `bg-[#00ff41] text-black`)
+Botões secundários: `LinkedIn` · `Baixe meu CV` (ghost: `border-[#00ff41]/50 text-[#00ff41]`)
+Botão `Ver Projetos` comentado — reativar quando Projects estiver pronto (tornar primário ou secundário conforme contexto).
+Background: `public/images/hero-bg.jpg` com overlay `bg-[#030712]/80`.
+
+## About — Skills com níveis
+
+Cada skill item tem `level: "Expert" | "Advanced" | "Proficient"`.
+Cores: Expert → `text-[#00ff41]` · Advanced → `text-blue-400` · Proficient → `text-slate-400`.
+Configuração em `levelConfig` map no topo do componente.
+
+## Experience — Colapso
+
+Mostra `VISIBLE_DEFAULT = 3` posições por defeito (as mais recentes).
+Botão "Ver N posições anteriores" expande para todas.
+Botão "Recolher histórico" volta ao estado inicial.
+Componente usa `"use client"` + `useState`.
 
 ## Certifications — Badge System
 
@@ -66,17 +103,7 @@ Campos do badge no componente:
 - `badgeBg` — `#ffffff` para logos com fundo branco · `#0d1117` para logos com fundo escuro
 - `badgeColor` — cor usada no glow (`box-shadow`) e no ponto colorido do rodapé
 
-## Hero
-
-Botões ativos: `Contactar` · `LinkedIn` · `Baixe meu CV` (todos com estilo `border-[#00ff41]/50 text-[#00ff41]`).
-Botão `Ver Projetos` comentado — reativar quando Projects estiver pronto.
-Background: `public/images/hero-bg.jpg` com overlay `bg-[#030712]/80`.
-
-## About
-
-Foto de perfil circular em `public/images/profile.jpg` com glow verde.
-Skills grid: sempre 2 colunas (`grid-cols-2`), cards com `flex flex-col` para preencher altura total.
-Fontes aumentadas: bio `text-base`, skills `text-base`, stats valor `text-3xl`.
+**Grid 7 itens:** quando `length % 3 === 1`, o último card recebe `lg:col-start-2` para centrar na linha.
 
 ## Contact
 
@@ -85,7 +112,11 @@ Contactos reais:
 - LinkedIn: `linkedin.com/in/fellipesmoreira/` (link externo)
 - GitHub: `github.com/FellipeMoreira1` (link externo)
 - HackTheBox: `@fellipe_htb` (sem link)
-- PGP Key: placeholder fictício — substituir quando chave real for gerada
+
+**Formspree:** integração real implementada. Endpoint em `FORMSPREE_ENDPOINT` no topo do componente.
+> Substituir `YOUR_FORM_ID` pelo ID do formulário em https://formspree.io (gratuito, 50 submissões/mês).
+
+PGP Key block removido (era placeholder fictício).
 
 ## Assets
 
@@ -97,7 +128,3 @@ Contactos reais:
 ## Deploy
 
 `vercel.json` configured — push to GitHub (`FellipeMoreira1/portifolio-fellipe`) triggers auto-deploy. No env vars required.
-
-## Contact Form
-
-`Contact.tsx` simulates send with `setTimeout`. Replace at `// Simula envio` with Formspree / Resend / EmailJS.

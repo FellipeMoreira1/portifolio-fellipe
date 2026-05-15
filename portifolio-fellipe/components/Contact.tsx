@@ -9,6 +9,9 @@ interface FormState {
   message: string;
 }
 
+// Create a free form at https://formspree.io → replace YOUR_FORM_ID below
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
 export default function Contact() {
   const [form, setForm] = useState<FormState>({
     name: "",
@@ -22,14 +25,26 @@ export default function Contact() {
     e.preventDefault();
     setStatus("sending");
 
-    // Simula envio — integrar com Formspree / Resend / EmailJS
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus("sent");
-
-    setTimeout(() => {
-      setStatus("idle");
-      setForm({ name: "", email: "", subject: "", message: "" });
-    }, 4000);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        setTimeout(() => {
+          setStatus("idle");
+          setForm({ name: "", email: "", subject: "", message: "" });
+        }, 4000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 4000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   const handleChange = (
@@ -52,7 +67,7 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto relative">
         {/* Section header */}
         <div className="flex items-center gap-4 mb-10 md:mb-16">
-          <span className="font-mono text-[#00ff41] text-sm">05.</span>
+          <span className="font-mono text-[#00ff41] text-sm">04.</span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold text-white">
             Contacto
           </h2>
@@ -62,7 +77,7 @@ export default function Contact() {
         <div className="grid md:grid-cols-5 gap-8 md:gap-12">
           {/* Left info */}
           <div className="md:col-span-2 space-y-6">
-            <p className="text-slate-400 text-sm leading-relaxed font-mono">
+            <p className="text-slate-300 text-sm leading-relaxed font-mono">
               <span className="text-[#00ff41]">$ </span>
               Disponível para projetos de pentesting, consultoria de segurança,
               bug bounty e colaborações.
@@ -81,7 +96,7 @@ export default function Contact() {
                 >
                   <span className="text-[#00ff41] w-4">{item.icon}</span>
                   <div>
-                    <div className="text-slate-600 text-xs">{item.label}</div>
+                    <div className="text-slate-500 text-xs">{item.label}</div>
                     {item.href ? (
                       <a
                         href={item.href}
@@ -98,18 +113,6 @@ export default function Contact() {
                 </div>
               ))}
             </div>
-
-            <div className="bg-[#080f12] border border-green-500/10 rounded-lg p-4">
-              <div className="font-mono text-xs text-slate-500 space-y-1">
-                <div className="text-[#00ff41] mb-2">// PGP Key</div>
-                <div className="break-all text-slate-600">
-                  4A3F 8B2E 1C9D 0E7F 5A6B...
-                </div>
-                <button className="text-green-500/60 hover:text-[#00ff41] transition-colors mt-2">
-                  Copiar chave completa
-                </button>
-              </div>
-            </div>
           </div>
 
           {/* Form */}
@@ -124,7 +127,7 @@ export default function Contact() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
                 <div className="w-3 h-3 rounded-full bg-green-500/70" />
               </div>
-              <span className="font-mono text-slate-600 text-xs ml-2">
+              <span className="font-mono text-slate-500 text-xs ml-2">
                 ~/send-message.sh
               </span>
             </div>
@@ -132,7 +135,7 @@ export default function Contact() {
             <div className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="font-mono text-xs text-slate-500 mb-1.5 block">
+                  <label className="font-mono text-xs text-slate-400 mb-1.5 block">
                     <span className="text-green-500/50">--</span> nome
                   </label>
                   <input
@@ -146,7 +149,7 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <label className="font-mono text-xs text-slate-500 mb-1.5 block">
+                  <label className="font-mono text-xs text-slate-400 mb-1.5 block">
                     <span className="text-green-500/50">--</span> email
                   </label>
                   <input
@@ -162,7 +165,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="font-mono text-xs text-slate-500 mb-1.5 block">
+                <label className="font-mono text-xs text-slate-400 mb-1.5 block">
                   <span className="text-green-500/50">--</span> assunto
                 </label>
                 <input
@@ -177,7 +180,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="font-mono text-xs text-slate-500 mb-1.5 block">
+                <label className="font-mono text-xs text-slate-400 mb-1.5 block">
                   <span className="text-green-500/50">--</span> mensagem
                 </label>
                 <textarea

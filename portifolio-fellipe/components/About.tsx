@@ -1,21 +1,47 @@
 const skills = [
   {
     category: "Microsoft Security",
-    items: ["Microsoft Sentinel", "Defender XDR", "Microsoft Purview", "Microsoft Entra ID"],
+    items: [
+      { name: "Microsoft Sentinel", level: "Expert" },
+      { name: "Defender XDR", level: "Expert" },
+      { name: "Microsoft Purview", level: "Advanced" },
+      { name: "Microsoft Entra ID", level: "Advanced" },
+    ],
   },
   {
     category: "SOC & Resposta",
-    items: ["Detecção de Ameaças", "Incident Response", "Análise Forense", "Gestão de Vulnerabilidades"],
+    items: [
+      { name: "Detecção de Ameaças", level: "Expert" },
+      { name: "Incident Response", level: "Expert" },
+      { name: "Análise Forense", level: "Advanced" },
+      { name: "Gestão de Vulnerabilidades", level: "Advanced" },
+    ],
   },
   {
     category: "Infraestrutura",
-    items: ["Windows Server", "Active Directory", "Redes LAN/WAN", "Email Security"],
+    items: [
+      { name: "Windows Server", level: "Expert" },
+      { name: "Active Directory", level: "Expert" },
+      { name: "Redes LAN/WAN", level: "Expert" },
+      { name: "Email Security", level: "Advanced" },
+    ],
   },
   {
     category: "Cloud & Identidade",
-    items: ["Microsoft Azure", "Microsoft 365", "Acesso Condicional", "Proteção de Identidade"],
+    items: [
+      { name: "Microsoft Azure", level: "Advanced" },
+      { name: "Microsoft 365", level: "Expert" },
+      { name: "Acesso Condicional", level: "Advanced" },
+      { name: "Proteção de Identidade", level: "Advanced" },
+    ],
   },
 ];
+
+const levelConfig: Record<string, { label: string; color: string; dot: string }> = {
+  Expert:   { label: "Expert",   color: "text-[#00ff41]",  dot: "bg-[#00ff41]" },
+  Advanced: { label: "Advanced", color: "text-blue-400",   dot: "bg-blue-400" },
+  Proficient:{ label: "Proficient",color: "text-slate-400", dot: "bg-slate-400" },
+};
 
 export default function About() {
   return (
@@ -51,7 +77,7 @@ export default function About() {
               <div>
                 <div className="font-mono text-white font-bold text-lg leading-tight">Fellipe Moreira</div>
                 <div className="font-mono text-[#00ff41] text-sm mt-0.5">Security Operations Analyst</div>
-                <div className="font-mono text-slate-500 text-xs mt-1">Lisboa, Portugal</div>
+                <div className="font-mono text-slate-400 text-xs mt-1">Lisboa, Portugal</div>
               </div>
             </div>
             <div className="bg-[#080f12] border border-green-500/10 rounded-lg p-6 font-mono text-base relative overflow-hidden">
@@ -62,7 +88,7 @@ export default function About() {
                   <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
                   <div className="w-3 h-3 rounded-full bg-green-500/70" />
                 </div>
-                <span className="text-slate-600 text-xs ml-2">~/about.md</span>
+                <span className="text-slate-500 text-xs ml-2">~/about.md</span>
               </div>
 
               <div className="space-y-4 text-slate-300 leading-relaxed">
@@ -105,7 +131,7 @@ export default function About() {
                   >
                     {stat.value}
                   </div>
-                  <div className="font-mono text-sm text-slate-500 mt-1">{stat.label}</div>
+                  <div className="font-mono text-sm text-slate-400 mt-1">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -122,12 +148,21 @@ export default function About() {
                   {group.category}
                 </h3>
                 <ul className="space-y-2.5 flex-1">
-                  {group.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 font-mono text-base text-slate-400">
-                      <span className="text-green-500/50 shrink-0">›</span>
-                      {item}
-                    </li>
-                  ))}
+                  {group.items.map((item) => {
+                    const lvl = levelConfig[item.level] ?? levelConfig.Proficient;
+                    return (
+                      <li key={item.name} className="flex items-center justify-between gap-2 font-mono text-sm">
+                        <span className="flex items-center gap-2 text-slate-300">
+                          <span className="text-green-500/50 shrink-0">›</span>
+                          {item.name}
+                        </span>
+                        <span className={`inline-flex items-center gap-1 text-xs ${lvl.color} shrink-0`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${lvl.dot} inline-block`} />
+                          {lvl.label}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

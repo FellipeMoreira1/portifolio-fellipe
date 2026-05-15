@@ -119,12 +119,14 @@ const statusConfig = {
   },
   expired: {
     label: "Expirado",
-    color: "text-slate-500",
+    color: "text-slate-400",
     bg: "bg-slate-500/10",
     border: "border-slate-500/30",
-    dot: "bg-slate-500",
+    dot: "bg-slate-400",
   },
 };
+
+const total = certifications.length;
 
 export default function Certifications() {
   return (
@@ -150,12 +152,19 @@ export default function Certifications() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {certifications.map((cert) => {
+          {certifications.map((cert, i) => {
             const s = statusConfig[cert.status];
+            // Centre the last card when it sits alone in its row
+            const aloneOnLg = total % 3 === 1 && i === total - 1;
+            const aloneOnMd = total % 2 === 1 && i === total - 1;
             return (
               <div
                 key={cert.name}
-                className="group bg-[#080f12] border border-green-500/10 rounded-xl p-6 hover:border-green-500/30 transition-all duration-300 hover:bg-[#0a1510] flex flex-col gap-4"
+                className={`group bg-[#080f12] border border-green-500/10 rounded-xl p-6 hover:border-green-500/30 transition-all duration-300 hover:bg-[#0a1510] flex flex-col gap-4${
+                  aloneOnLg ? " lg:col-start-2" : ""
+                }${
+                  aloneOnMd && !aloneOnLg ? " md:col-span-2 md:max-w-sm md:mx-auto" : ""
+                }`}
               >
                 {/* Badge + status */}
                 <div className="flex items-start justify-between">
@@ -202,7 +211,7 @@ export default function Certifications() {
 
                 {/* Credential ID */}
                 {cert.credentialId && (
-                  <div className="font-mono text-sm text-slate-500 border-t border-green-500/10 pt-3">
+                  <div className="font-mono text-sm text-slate-400 border-t border-green-500/10 pt-3">
                     <span className="text-green-500/50">ID: </span>
                     {cert.credentialId}
                   </div>

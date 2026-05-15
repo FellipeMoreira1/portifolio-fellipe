@@ -20,7 +20,7 @@ html {
 body {
   background-color: var(--bg-dark);
   color: #e2e8f0;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: system-ui, sans-serif;
   overflow-x: hidden;
   width: 100%;
 }
@@ -38,7 +38,7 @@ img, svg, video {
   background: #0d1a14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #00ff41;
+  background: rgba(0, 255, 65, 0.5);
   border-radius: 3px;
 }
 
@@ -97,4 +97,41 @@ img, svg, video {
   border-color: rgba(0, 255, 65, 0.6);
   box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), 0 0 60px rgba(0, 255, 65, 0.05);
   transform: translateY(-4px);
+}
+
+/* ─── Scroll-driven section animations ─── */
+section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+/* Hero is always visible — no entrance animation */
+section#hero {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  section,
+  section#hero {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

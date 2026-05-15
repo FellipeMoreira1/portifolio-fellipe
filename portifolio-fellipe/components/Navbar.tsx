@@ -10,14 +10,55 @@ const navLinks = [
   { href: "#contact", label: "Contacto" },
 ];
 
+const allSectionIds = ["hero", "about", "certifications", "experience", "contact"];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    // Track active nav section (centre of viewport)
+    const activeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+
+    // Trigger fade-in animation for each section
+    const animObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            animObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    allSectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        activeObserver.observe(el);
+        animObserver.observe(el);
+      }
+    });
+
+    return () => {
+      activeObserver.disconnect();
+      animObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -43,18 +84,27 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-6 lg:gap-10">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="font-mono text-base font-semibold text-slate-300 hover:text-[#00ff41] transition-colors duration-200 relative group tracking-wide"
-              >
-                <span className="text-green-500/60 mr-1.5 text-sm">//</span>
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#00ff41] group-hover:w-full transition-all duration-300" />
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.slice(1);
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`font-mono text-base font-semibold transition-colors duration-200 relative group tracking-wide ${
+                    isActive ? "text-[#00ff41]" : "text-slate-300 hover:text-[#00ff41]"
+                  }`}
+                >
+                  <span className="text-green-500/60 mr-1.5 text-sm">//</span>
+                  {link.label}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-px bg-[#00ff41] transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Mobile menu button */}
@@ -81,18 +131,23 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden bg-[#080f12]/98 border-b border-green-500/20 px-6 py-5">
           <ul className="space-y-5">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="font-mono text-base font-semibold text-slate-300 hover:text-[#00ff41] transition-colors block tracking-wide"
-                >
-                  <span className="text-green-500/60 mr-2">{">"}</span>
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.slice(1);
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`font-mono text-base font-semibold transition-colors block tracking-wide ${
+                      isActive ? "text-[#00ff41]" : "text-slate-300 hover:text-[#00ff41]"
+                    }`}
+                  >
+                    <span className={`mr-2 ${isActive ? "text-[#00ff41]" : "text-green-500/60"}`}>{">"}</span>
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
