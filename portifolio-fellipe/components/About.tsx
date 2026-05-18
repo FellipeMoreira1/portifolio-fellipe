@@ -2,46 +2,40 @@ const skills = [
   {
     category: "Microsoft Security",
     items: [
-      { name: "Microsoft Sentinel", level: "Expert" },
-      { name: "Defender XDR", level: "Expert" },
-      { name: "Microsoft Purview", level: "Advanced" },
-      { name: "Microsoft Entra ID", level: "Advanced" },
+      { name: "Microsoft Sentinel", context: "Hunting, triage e regras analíticas KQL", cert: "SC-900" },
+      { name: "Defender XDR", context: "Investigação e resposta a incidentes", cert: "SC-900" },
+      { name: "Microsoft Purview", context: "Políticas de compliance e DLP" },
+      { name: "Microsoft Entra ID", context: "Gestão de identidade e acesso" },
     ],
   },
   {
     category: "SOC & Resposta",
     items: [
-      { name: "Detecção de Ameaças", level: "Expert" },
-      { name: "Incident Response", level: "Expert" },
-      { name: "Análise Forense", level: "Advanced" },
-      { name: "Gestão de Vulnerabilidades", level: "Advanced" },
+      { name: "Detecção de Ameaças", context: "Criação de regras analíticas e alertas" },
+      { name: "Incident Response", context: "Análise, contenção e remediação" },
+      { name: "Análise Forense", context: "Coleta e análise de evidências digitais" },
+      { name: "Gestão de Vulnerabilidades", context: "Priorização e acompanhamento de riscos" },
     ],
   },
   {
     category: "Infraestrutura",
     items: [
-      { name: "Windows Server", level: "Expert" },
-      { name: "Active Directory", level: "Expert" },
-      { name: "Redes LAN/WAN", level: "Expert" },
-      { name: "Email Security", level: "Advanced" },
+      { name: "Windows Server", context: "Administração, GPO e hardening" },
+      { name: "Active Directory", context: "GPO, DNS, replicação e segurança" },
+      { name: "Redes LAN/WAN", context: "Design, configuração e troubleshooting" },
+      { name: "Email Security", context: "Exchange Online, EOP e anti-phishing" },
     ],
   },
   {
     category: "Cloud & Identidade",
     items: [
-      { name: "Microsoft Azure", level: "Advanced" },
-      { name: "Microsoft 365", level: "Expert" },
-      { name: "Acesso Condicional", level: "Advanced" },
-      { name: "Proteção de Identidade", level: "Advanced" },
+      { name: "Microsoft Azure", context: "Segurança de recursos e monitorização", cert: "AZ-900" },
+      { name: "Microsoft 365", context: "Administração e segurança de tenant", cert: "MS-900" },
+      { name: "Acesso Condicional", context: "Políticas Zero Trust e MFA" },
+      { name: "Proteção de Identidade", context: "Risco de identidade e SSPR" },
     ],
   },
 ];
-
-const levelConfig: Record<string, { label: string; color: string; dot: string }> = {
-  Expert:   { label: "Expert",   color: "text-[#00ff41]",  dot: "bg-[#00ff41]" },
-  Advanced: { label: "Advanced", color: "text-blue-400",   dot: "bg-blue-400" },
-  Proficient:{ label: "Proficient",color: "text-slate-400", dot: "bg-slate-400" },
-};
 
 export default function About() {
   return (
@@ -147,22 +141,23 @@ export default function About() {
                 <h3 className="font-mono text-sm text-[#00ff41] font-bold mb-4 tracking-widest uppercase">
                   {group.category}
                 </h3>
-                <ul className="space-y-2.5 flex-1">
-                  {group.items.map((item) => {
-                    const lvl = levelConfig[item.level] ?? levelConfig.Proficient;
-                    return (
-                      <li key={item.name} className="flex items-center justify-between gap-2 font-mono text-sm">
+                <ul className="space-y-3 flex-1">
+                  {group.items.map((item) => (
+                    <li key={item.name} className="font-mono text-sm">
+                      <div className="flex items-center justify-between gap-2">
                         <span className="flex items-center gap-2 text-slate-300">
                           <span className="text-green-500/50 shrink-0">›</span>
                           {item.name}
                         </span>
-                        <span className={`inline-flex items-center gap-1 text-xs ${lvl.color} shrink-0`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${lvl.dot} inline-block`} />
-                          {lvl.label}
-                        </span>
-                      </li>
-                    );
-                  })}
+                        {item.cert && (
+                          <span className="text-xs text-[#00ff41] border border-[#00ff41]/30 px-1.5 py-0.5 rounded shrink-0">
+                            {item.cert}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-slate-500 ml-4 mt-0.5">{item.context}</p>
+                    </li>
+                  ))}
                 </ul>
               </div>
             ))}
