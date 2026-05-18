@@ -19,7 +19,7 @@ Navbar anchors: `#about` `#certifications` `#experience` `#contact`
 Link `#projects` comentado em `Navbar.tsx` navLinks array.
 
 **Content lives as typed arrays at the top of each component — no CMS, no fetching:**
-- `About.tsx` — `skills[]` groups com campo `level: "Expert"|"Advanced"|"Proficient"` por item
+- `About.tsx` — `skills[]` groups com campos `context: string` e `cert?: string` por item
 - `Certifications.tsx` — `Certification[]` com campos: `badge`, `badgeColor`, `badgeBg?`, `badgeImageUrl?`, `issuerUrl`, `url?`, `credentialId?`
 - `Experience.tsx` — `Position[]` · `current?: boolean` (timeline, newest first) · colapsa a 3 por defeito
 - `Projects.tsx` — `Project[]` · `type: "pentest"|"tool"|"research"|"ctf"` (oculto)
@@ -71,11 +71,15 @@ Botões secundários: `LinkedIn` · `Baixe meu CV` (ghost: `border-[#00ff41]/50 
 Botão `Ver Projetos` comentado — reativar quando Projects estiver pronto (tornar primário ou secundário conforme contexto).
 Background: `public/images/hero-bg.jpg` com overlay `bg-[#030712]/80`.
 
-## About — Skills com níveis
+## About — Skills com contexto e certificações
 
-Cada skill item tem `level: "Expert" | "Advanced" | "Proficient"`.
-Cores: Expert → `text-[#00ff41]` · Advanced → `text-blue-400` · Proficient → `text-slate-400`.
-Configuração em `levelConfig` map no topo do componente.
+Cada skill item tem dois campos:
+- `context: string` — descrição curta de uso real (ex: "Hunting, triage e regras analíticas KQL")
+- `cert?: string` — badge de certificação opcional, só onde existe cert real (ex: "SC-900", "AZ-900", "MS-900")
+
+Rendering: duas linhas por item — nome na primeira, contexto em `text-slate-500` abaixo.
+Badge de cert aparece alinhado à direita com borda `border-[#00ff41]/30` e texto `text-[#00ff41]`.
+Não há `levelConfig` — classificações subjetivas Expert/Advanced foram removidas.
 
 ## Experience — Colapso
 
