@@ -120,12 +120,12 @@ export default function Hero() {
         {/* CTA buttons — primary + secondary hierarchy */}
         <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
           {/* Primary CTA */}
-          <a
+          {/* <a
             href="#contact"
             className="w-full sm:w-auto px-8 py-3 bg-[#00ff41] text-black font-mono font-bold text-base rounded hover:bg-green-400 transition-all duration-200 hover:shadow-[0_0_24px_rgba(0,255,65,0.5)] text-center"
           >
             Contactar
-          </a>
+          </a> */}
           {/* Secondary CTAs */}
           <a
             href="https://www.linkedin.com/in/fellipesmoreira/"
