@@ -1,57 +1,9 @@
-"use client";
-
-import { useState, FormEvent } from "react";
-
-interface FormState {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-// Create a free form at https://formspree.io → replace YOUR_FORM_ID below
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
-
 export default function Contact() {
-  const [form, setForm] = useState<FormState>({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setStatus("sending");
-
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        setStatus("sent");
-        setTimeout(() => {
-          setStatus("idle");
-          setForm({ name: "", email: "", subject: "", message: "" });
-        }, 4000);
-      } else {
-        setStatus("error");
-        setTimeout(() => setStatus("idle"), 4000);
-      }
-    } catch {
-      setStatus("error");
-      setTimeout(() => setStatus("idle"), 4000);
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const contacts = [
+    { label: "Email", value: "fellipe_moreira@outlook.com", icon: "✉", href: "mailto:fellipe_moreira@outlook.com" },
+    { label: "LinkedIn", value: "/in/fellipesmoreira", icon: "▶", href: "https://www.linkedin.com/in/fellipesmoreira/" },
+    { label: "GitHub", value: "@FellipeMoreira1", icon: "◈", href: "https://github.com/FellipeMoreira1" },
+  ];
 
   return (
     <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 relative bg-[#05090f]">
@@ -74,138 +26,31 @@ export default function Contact() {
           <div className="flex-1 h-px bg-gradient-to-r from-green-500/30 to-transparent" />
         </div>
 
-        <div className="grid md:grid-cols-5 gap-8 md:gap-12">
-          {/* Left info */}
-          <div className="md:col-span-2 space-y-6">
-            <p className="text-slate-300 text-sm leading-relaxed font-mono">
-              <span className="text-[#00ff41]">$ </span>
-              Disponível para projetos de pentesting, consultoria de segurança,
-              bug bounty e colaborações.
-            </p>
+        <div className="space-y-8">
+          <p className="text-slate-300 text-sm leading-relaxed font-mono">
+            <span className="text-[#00ff41]">$ </span>
+            Disponível para projetos de pentesting, consultoria de segurança,
+            bug bounty e colaborações.
+          </p>
 
-            <div className="space-y-4">
-              {[
-                { label: "Email", value: "fellipe_moreira@outlook.com", icon: "✉", href: "mailto:fellipe_moreira@outlook.com" },
-                { label: "LinkedIn", value: "/in/fellipesmoreira", icon: "▶", href: "https://www.linkedin.com/in/fellipesmoreira/" },
-                { label: "GitHub", value: "@FellipeMoreira1", icon: "◈", href: "https://github.com/FellipeMoreira1" },
-                { label: "HackTheBox", value: "@fellipe_htb", icon: "⬡", href: undefined },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-3 font-mono text-sm"
-                >
-                  <span className="text-[#00ff41] w-4">{item.icon}</span>
-                  <div>
-                    <div className="text-slate-500 text-xs">{item.label}</div>
-                    {item.href ? (
-                      <a
-                        href={item.href}
-                        target={item.href.startsWith("mailto") ? undefined : "_blank"}
-                        rel="noopener noreferrer"
-                        className="text-slate-300 hover:text-[#00ff41] transition-colors"
-                      >
-                        {item.value}
-                      </a>
-                    ) : (
-                      <div className="text-slate-300">{item.value}</div>
-                    )}
-                  </div>
+          <div className="space-y-4">
+            {contacts.map((item) => (
+              <div key={item.label} className="flex items-center gap-3 font-mono text-sm">
+                <span className="text-[#00ff41] w-4">{item.icon}</span>
+                <div>
+                  <div className="text-slate-500 text-xs">{item.label}</div>
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    className="text-slate-300 hover:text-[#00ff41] transition-colors"
+                  >
+                    {item.value}
+                  </a>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-
-          {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="md:col-span-3 bg-[#080f12] border border-green-500/10 rounded-lg p-5 sm:p-8"
-          >
-            {/* Terminal bar */}
-            <div className="flex items-center gap-2 mb-6 pb-4 border-b border-green-500/10">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500/70" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-                <div className="w-3 h-3 rounded-full bg-green-500/70" />
-              </div>
-              <span className="font-mono text-slate-500 text-xs ml-2">
-                ~/send-message.sh
-              </span>
-            </div>
-
-            <div className="space-y-5">
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="font-mono text-xs text-slate-400 mb-1.5 block">
-                    <span className="text-green-500/50">--</span> nome
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="O seu nome"
-                    className="w-full bg-[#0d1a14] border border-green-500/20 rounded px-4 py-2.5 font-mono text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="font-mono text-xs text-slate-400 mb-1.5 block">
-                    <span className="text-green-500/50">--</span> email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="email@exemplo.com"
-                    className="w-full bg-[#0d1a14] border border-green-500/20 rounded px-4 py-2.5 font-mono text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-all"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="font-mono text-xs text-slate-400 mb-1.5 block">
-                  <span className="text-green-500/50">--</span> assunto
-                </label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  required
-                  placeholder="Assunto da mensagem"
-                  className="w-full bg-[#0d1a14] border border-green-500/20 rounded px-4 py-2.5 font-mono text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="font-mono text-xs text-slate-400 mb-1.5 block">
-                  <span className="text-green-500/50">--</span> mensagem
-                </label>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  placeholder="Descreva o seu projeto ou proposta..."
-                  className="w-full bg-[#0d1a14] border border-green-500/20 rounded px-4 py-2.5 font-mono text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-all resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === "sending" || status === "sent"}
-                className="w-full py-3 bg-[#00ff41] text-black font-mono font-bold text-sm rounded hover:bg-green-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,65,0.4)]"
-              >
-                {status === "idle" && "$ ./send-message.sh"}
-                {status === "sending" && "Enviando..."}
-                {status === "sent" && "✓ Mensagem enviada!"}
-                {status === "error" && "✗ Erro — tente novamente"}
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </section>
